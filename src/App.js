@@ -34,13 +34,23 @@ function App() {
         setUser(userFetchingDetails);
       });
   }
+
+  var [copy, setCopied] = useState(false);
+
+  function handleCopy(user) {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+    navigator.clipboard.writeText(JSON.stringify(user));
+  }
   
   return (
     <div className="App">
       <h1>Random User Generator</h1>
       <User {...user} />
       <button onClick={handleGenerate}>Generate</button>
-      <button>Copy</button>
+      <button onClick={() => handleCopy(user)}>{copy ? "Copied!" : "Copy"}</button>
     </div>
   );
 }
